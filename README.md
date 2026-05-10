@@ -21,7 +21,7 @@ Frontend: Jinja2 + Pico CSS.
 Autenticación: Flask-Login.
 
 📂 Estructura del Proyecto
-├── src/               # Código fuente de la aplicación
+\n├── src/               # Código fuente de la aplicación
 │   ├── app.py         # Controlador principal y rutas
 │   ├── model.py       # Definición de entidades (Clases)
 │   ├── templates/     # Plantillas Jinja2 (HTML)
