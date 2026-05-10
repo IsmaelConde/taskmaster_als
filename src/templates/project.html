@@ -1,0 +1,109 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <!-- Navegación superior -->
+    <nav aria-label="breadcrumb">
+        <ul>
+            <li><a href="/">🏠 Inicio</a></li>
+            <li>Proyecto: <strong>{{ p.name }}</strong></li>
+        </ul>
+    </nav>
+
+    <!-- CABECERA DEL PROYECTO -->
+    <article>
+        <header style="display: flex; justify-content: space-between; align-items: center;">
+            <hgroup>
+                <h2>{{ p.name }}</h2>
+                <p>{{ p.description }}</p>
+            </hgroup>
+            
+            <div>
+                {% if p.completed %}
+                    <span style="background: #2ecc71; color: white; padding: 5px 15px; border-radius: 20px; font-weight: bold;">
+                        ✅ COMPLETADO
+                    </span>
+                {% else %}
+                    <span style="background: #f39c12; color: white; padding: 5px 15px; border-radius: 20px; font-weight: bold;">
+                        ⏳ PENDIENTE
+                    </span>
+                {% endif %}
+            </div>
+        </header>
+        
+        <footer>
+            <a href="/project/toggle/{{ p_oid }}" class="outline contrast">
+                Cambiar estado a {% if p.completed %} "Pendiente" {% else %} "Terminado" {% endif %}
+            </a>
+        </footer>
+    </article>
+
+    <!-- SECCIÓN DE TAREAS (ENTIDAD 2) -->
+    <section>
+        <h3>Tareas del proyecto</h3>
+        
+        <figure>
+            <table role="grid">
+                <thead>
+                    <tr>
+                        <th style="width: 80px;">Hecho</th>
+                        <th>Tarea</th>
+                        <th style="width: 300px;">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for t_id, t in tareas %}
+                    <tr>
+                        <td>
+                            <a href="/task/toggle/{{ t_id }}/{{ p_oid }}" title="Marcar como hecha">
+                                {% if t.completed %} ✅ {% else %} ⭕ {% endif %}
+                            </a>
+                        </td>
+                        <td>
+                            {% if t.completed %}
+                                <del>{{ t.content }}</del>
+                            {% else %}
+                                {{ t.content }}
+                            {% endif %}
+                        </td>
+                        <td>
+                            <div style="display: flex; gap: 10px; align-items: center;">
+                                <!-- Formulario rápido para editar el texto de la tarea -->
+                                <form action="/task/edit/{{ t_id }}/{{ p_oid }}" method="POST" style="margin:0; display: flex; gap: 5px;">
+                                    <input type="text" name="content" value="{{ t.content }}" style="margin:0; height: 35px;" required>
+                                    <button type="submit" class="outline" style="padding: 0 10px; height: 35px;">💾</button>
+                                </form>
+
+                                <!-- Botón para borrar tarea -->
+                                <a href="/task/delete/{{ t_id }}/{{ p_oid }}" 
+                                   onclick="return confirm('¿Borrar esta tarea?')" 
+                                   class="secondary" 
+                                   style="padding: 5px 10px; text-decoration: none;">🗑️</a>
+                            </div>
+                        </td>
+                    </tr>
+                    {% else %}
+                    <tr>
+                        <td colspan="3" style="text-align: center;">Este proyecto aún no tiene tareas. ¡Añade la primera abajo!</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </figure>
+    </section>
+
+    <hr>
+
+    <!-- FORMULARIO PARA AÑADIR NUEVAS TAREAS -->
+    <article>
+        <header>
+            <strong>➕ Añadir Nueva Tarea</strong>
+        </header>
+        <form action="/task/add/{{ p_oid }}" method="POST">
+            <div class="grid">
+                <input type="text" name="content" placeholder="Ej: Comprar materiales, llamar al cliente..." required>
+                <button type="submit">Añadir Tarea</button>
+            </div>
+        </form>
+    </article>
+
+{% endblock %}

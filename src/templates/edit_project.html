@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block content %}
+    <nav aria-label="breadcrumb">
+        <ul>
+            <li><a href="/">Inicio</a></li>
+            <li>Editar Proyecto</li>
+        </ul>
+    </nav>
+
+    <article>
+        <header>
+            <h2>Editar Proyecto: {{ p.name }}</h2>
+        </header>
+        <form method="POST">
+            <label for="name">Nombre del Proyecto:</label>
+            <input type="text" id="name" name="name" value="{{ p.name }}" required>
+
+            <label for="desc">Descripción:</label>
+            <textarea id="desc" name="desc" rows="4">{{ p.description }}</textarea>
+
+            <div class="grid">
+                <button type="submit">Guardar Cambios</button>
+                <a href="/" class="contrast outline" role="button">Cancelar</a>
+            </div>
+        </form>
+    </article>
+{% endblock %}

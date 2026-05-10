@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>TaskMaster ALS</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css">
+</head>
+<body>
+    <nav class="container-fluid">
+        <ul><li><strong>TaskMaster</strong></li></ul>
+        <ul>
+            {% if current_user.is_authenticated %}
+                <li><a href="/">Inicio</a></li>
+                <li><a href="/logout" class="outline">Salir ({{ current_user.username }})</a></li>
+                <li><a href="/categories">Categorías</a></li>
+            {% else %}
+                <li><a href="/login">Login</a></li>
+                <li><a href="/register">Registro</a></li>
+            {% endif %}
+        </ul>
+    </nav>
+    <main class="container">
+        {% block content %}{% endblock %}
+    </main>
+</body>
+</html>

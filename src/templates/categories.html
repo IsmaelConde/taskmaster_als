@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block content %}
+    <h2>Gestionar Categorías</h2>
+    <article>
+        <form action="/category/add" method="POST">
+            <div class="grid">
+                <input type="text" name="name" placeholder="Ej: Trabajo, Personal, Universidad..." required>
+                <button type="submit">Añadir Categoría</button>
+            </div>
+        </form>
+    </article>
+
+    <table>
+        <thead><tr><th>Nombre</th><th>Acción</th></tr></thead>
+        <tbody>
+            {% for c_id, c in categorias %}
+            <tr>
+                <td>{{ c.name }}</td>
+                <td><a href="/category/delete/{{ c_id }}" class="secondary" onclick="return confirm('¿Borrar?')">Eliminar</a></td>
+            </tr>
+            {% else %}
+            <tr><td colspan="2">No tienes categorías.</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <a href="/" class="outline">Volver a Proyectos</a>
+{% endblock %}

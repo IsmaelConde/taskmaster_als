@@ -1,0 +1,106 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <header>
+        <hgroup>
+            <h2>Gestión de Proyectos</h2>
+            <p>Organiza tus tareas por categorías y proyectos</p>
+        </hgroup>
+        <nav>
+            <ul></ul>
+            <ul>
+                <li><a href="/categories" role="button" class="outline">📁 Gestionar Categorías</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- TABLA DE PROYECTOS -->
+    <figure>
+        <table role="grid">
+            <thead>
+                <tr>
+                    <th scope="col" style="width: 100px;">Estado</th>
+                    <th scope="col">Proyecto</th>
+                    <th scope="col">Categoría</th>
+                    <th scope="col">Descripción</th>
+                    <th scope="col" style="width: 120px;">Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for p_id, p, cat_name in proyectos %}
+                <tr>
+                    <td>
+                        <a href="/project/toggle/{{ p_id }}" title="Cambiar estado">
+                            {% if p.completed %} ✅ {% else %} 🕒 {% endif %}
+                        </a>
+                    </td>
+                    <td>
+                        <a href="/project/{{ p_id }}">
+                            <strong>
+                                {% if p.completed %}<del>{{ p.name }}</del>{% else %}{{ p.name }}{% endif %}
+                            </strong>
+                        </a>
+                    </td>
+                    <td>
+                        <span class="badge" style="background: #e1e1e1; padding: 2px 8px; border-radius: 5px; font-size: 0.8em; color: #333;">
+                            {{ cat_name }}
+                        </span>
+                    </td>
+                    <td><small>{{ p.description }}</small></td>
+                    <td>
+                        <div style="display: flex; gap: 15px;">
+                            <a href="/project/edit/{{ p_id }}" title="Editar">✏️</a>
+                            <a href="/project/delete/{{ p_id }}" 
+                               onclick="return confirm('¿Borrar proyecto y todas sus tareas?')" 
+                               class="secondary" title="Eliminar">🗑️</a>
+                        </div>
+                    </td>
+                </tr>
+                {% else %}
+                <tr>
+                    <td colspan="5" style="text-align: center;">No hay proyectos. ¡Crea el primero abajo!</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </figure>
+
+    <hr>
+
+    <!-- FORMULARIO DE CREACIÓN -->
+    <article>
+        <header>
+            <strong>➕ Crear Nuevo Proyecto</strong>
+        </header>
+        <form action="/project/add" method="POST">
+            <div class="grid">
+                <!-- Nombre -->
+                <label for="name">
+                    Nombre
+                    <input type="text" id="name" name="name" placeholder="Ej: Mi TFG" required>
+                </label>
+
+                <!-- Selector de Categoría (Entidad 3) -->
+                <label for="category">
+                    Categoría
+                    <select id="category" name="category_oid">
+                        <option value="">Sin categoría</option>
+                        {% for c_id, c in categorias %}
+                            <option value="{{ c_id }}">{{ c.name }}</option>
+                        {% endfor %}
+                    </select>
+                </label>
+            </div>
+
+            <!-- Descripción -->
+            <label for="desc">Descripción</label>
+            <input type="text" id="desc" name="desc" placeholder="¿De qué trata este proyecto?">
+
+            <button type="submit" class="contrast">Crear Proyecto</button>
+        </form>
+        <footer>
+            <small>Nota: Las categorías se pueden crear en el botón superior "Gestionar Categorías".</small>
+        </footer>
+    </article>
+
+{% endblock %}

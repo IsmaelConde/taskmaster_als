@@ -1,0 +1,5 @@
+Título del proyecto: TaskMaster ALS - Gestor de Proyectos y Tareas
+Repositorio del proyecto: https://github.com/IsmaelConde/taskmaster_als
+URL del proyecto: http://127.0.0.1:5000 (Ejecución local)
+Apellidos y Nombre: Conde Conde Ismael
+DNI: *********
