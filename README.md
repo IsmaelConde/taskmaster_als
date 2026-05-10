@@ -1,9 +1,7 @@
 # taskmaster_als
 TaskMaster ALS es una aplicación web de gestión de proyectos y tareas diseñada siguiendo el modelo de Aprendizaje Basado en Problemas (ALS). La aplicación permite a los usuarios organizar su flujo de trabajo mediante una jerarquía estructurada de categorías, proyectos y tareas, garantizando la persistencia y la integridad de los datos en una base de datos NoSQL.
 ![alt text](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54)
-
 ![alt text](https://img.shields.io/badge/flask-%23000.svg?style=for-the-badge&logo=flask&logoColor=white)
-
 ![alt text](https://img.shields.io/badge/redis-%23DD0031.svg?style=for-the-badge&logo=redis&logoColor=white)
 
 ✨ Características Principales
@@ -21,14 +19,23 @@ Frontend: Jinja2 + Pico CSS.
 Autenticación: Flask-Login.
 
 📂 Estructura del Proyecto
-\n├── src/               # Código fuente de la aplicación
+
+├── src/               # Código fuente de la aplicación
+
 │   ├── app.py         # Controlador principal y rutas
+
 │   ├── model.py       # Definición de entidades (Clases)
+
 │   ├── templates/     # Plantillas Jinja2 (HTML)
+
 │   └── static/        # Archivos estáticos (CSS/JS)
+
 ├── doc/               # Documentación del proyecto
+
 │   ├── memoria.pdf    # Memoria técnica detallada
+
 │   └── info.txt       # Información de entrega
+
 └── bin/               # Scripts de ejecución
 
 🚀 Instalación y Ejecución
